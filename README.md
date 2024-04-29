@@ -1,5 +1,5 @@
 # Introduction
-This is a project for and by the 100Devs agency, San Francisco.
+This is a project for members of the 100Devs agency, San Francisco. It is made by two of the members.
 
 It is an internal tool for freelancers who are interested in moving on to a more regular job. It helps to organize and follow up on contacts for the search.
 
