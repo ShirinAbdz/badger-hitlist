@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+// Next steps:
+// 1. Set the DATABASE_URL in the .env file to point to your existing database. If your database has no tables yet, read https://pris.ly/d/getting-started
+// 2. Set the provider of the datasource block in schema.prisma to match your database: postgresql, mysql, sqlite, sqlserver, mongodb or cockroachdb.
+// 3. Run prisma db pull to turn your database schema into a Prisma schema.
+// 4. Run prisma generate to generate the Prisma Client. You can then start querying your database.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Record {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime[]
+  company   String   @db.VarChar(255)
+  note      String   @db.VarChar(5000)
+  status    Int
+  //The authorId field in this table matches the id field in the User table. We call this relationship 'author'. This is one to many. One author many posts.
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int      
+}
+
+model Profile {
+  id     Int     @id @default(autoincrement())
+  bio    String?
+  //One to one relationship - only one profile per user. @unique means every profile has a unique userId.
+  user   User    @relation(fields: [userId], references: [id])
+  userId Int     @unique
+}
+
+model User {
+  id      Int      @id @default(autoincrement())
+  email   String   @unique
+  name    String?
+  //You need to define the reciprocal relationships. It's not enough to define it in just one table. So here are the relationship entries for the user's records and profile
+  records Record[]
+  profile Profile?
+}
