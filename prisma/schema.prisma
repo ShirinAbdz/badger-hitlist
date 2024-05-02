@@ -44,6 +44,7 @@ model User {
   id      Int      @id @default(autoincrement())
   email   String   @unique
   name    String?
+  password   String
   //You need to define the reciprocal relationships. It's not enough to define it in just one table. So here are the relationship entries for the user's records and profile
   records Record[]
   profile Profile?
