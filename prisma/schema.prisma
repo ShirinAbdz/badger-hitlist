@@ -35,6 +35,10 @@ model Record {
 model Profile {
   id     Int     @id @default(autoincrement())
   bio    String?
+  //This will be an array of [firstFollowup, secondFollowup, thirdFollowup, OverdueFlagGrace]
+  settingInt Int[]
+  //PostgreSQL is fine with mixed int and strings in an array but Prisma cannot. So we have this for string settings
+  timezone String
   //One to one relationship - only one profile per user. @unique means every profile has a unique userId.
   user   User    @relation(fields: [userId], references: [id])
   userId Int     @unique
