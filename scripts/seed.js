@@ -45,11 +45,11 @@ async function seedUsers(prisma){
 async function seedProfiles(prisma){
     try{
         await prisma.profile.createMany({
-            data: newRecords,
+            data: newProfiles,
         });
-        console.log("put in some new records!", );
+        console.log("put in some new profiles!", );
     } catch (err){
-        console.log("uh oh, record issue", err);
+        console.log("uh oh, profiles issue", err);
         throw error;
     }
 } 
@@ -58,7 +58,15 @@ const prisma = new PrismaClient();
 
 async function main() {
     console.log("seeding data");
-    await seedUsers(prisma);
-    await seedProfiles(prisma);
+    // await seedUsers(prisma);
+    // await seedProfiles(prisma);
     await seedRecords(prisma);
 }
+
+main().then(async() => {
+    await prisma.$disconnect()
+}).catch(async (e) =>{
+    console.error(e);
+    await prisma.$disconnect();
+    process.exit(1)
+});
