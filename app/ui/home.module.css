@@ -1,0 +1,15 @@
+/* If there is any css you want only on the splash page put here */
+.container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    margin-top: 1vh;
+    background: #0b1a5e;
+    border-radius: 20px;
+    z-index: 1;
+}
+  
+img {
+    border-radius: 50%;
+}
